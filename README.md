@@ -10,6 +10,7 @@ TODO: Reorder steps more logically.
 * [Arch Wiki - MacBook Pro 8,x](https://wiki.archlinux.org/title/MacBookPro8,x)
 * [Arch Wiki - Laptop/Apple](https://wiki.archlinux.org/title/Laptop/Apple)
 * [Arch Wiki - Installation Guide](https://wiki.archlinux.org/title/Installation_guide)
+* [Philp @ Medium - Arch Linux Running on my MacBook](https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3)
 
 ## Pre-installation
 
@@ -140,7 +141,7 @@ Set locale:
 * Edit `/etc/locale.gen` and uncomment `en_US.UTF-8 UTF-8` and other locales.
 * Create `/etc/locale.conf` and set `LANG=en_US.UTF-8`
 
-### Configure Swapfile
+### Configure Swapfile for Hibernation
 
 Create 20GB swapfile:
 
@@ -158,7 +159,7 @@ Make it persistent by adding an entry to fstab:
 
 Check for errors (don't reboot until fixed): `mount -a`
 
-Set a low swappiness value permanently (I forget why I did this, maybe so I can use the swapfile just for hibernation but I still haven't set up hibernation): create configuration file at `/etc/sysctl.d/99-swappiness.conf` and add `vm.swappiness = 1`.
+Set a low swappiness value permanently so we only use it for hibernation: create configuration file at `/etc/sysctl.d/99-swappiness.conf` and add `vm.swappiness = 1`.
 
 TODO: Can I do this at the moment of partitioning the disk instead?
 
@@ -307,7 +308,7 @@ Broadcast=[last ip of subnet]
 
 ## Power and Fans
 
-(I have not tested these.)
+(Copied from * [Philp @ Medium - Arch Linux Running on my MacBook](https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3) but have not tested it.)
 
 ### Get mbpfan
 
@@ -326,9 +327,9 @@ Make a directory for AUR downloads, e.g. `~/builds`. In this directory, download
 git clone https://aur.archlinux.org/mbpfan-git.git
 cd mpbfan-git
 makepkg
-sudo pacman -U mbpfan-git
-sudo systemctl enable mbpfan-git
-sudo systemctl start mbpfan-git
+pacman -U mbpfan-git
+systemctl enable mbpfan-git
+systemctl start mbpfan-git
 ```
 
 #### More Services
@@ -341,14 +342,20 @@ In `/etc/default/cpupower` set `governor` to `powersave`.
 
 ## Setup Desktop Environment
 
-Install Gnome:
-```
-pacman -S gnome
-```
-
 I had some issues with Wayland so let's use Xorg:
 ```
 pacman -S xorg xorg-server
+```
+
+Install Gnome and its desktop manager:
+```
+pacman -S gnome
+systemctl enable gdm
+```
+
+Install Intel display drivers:
+```
+pacman -S xf86-video-intel
 ```
 
 ## More Customization
@@ -367,7 +374,7 @@ HandlePowerKey=suspend
 
 ## TODO
 
-* Figure out how to hibernate when battery is low.
+* Setup hibernation.
 * Figure out how to switch between wifi and ethernet without changing modules or services.
 * Fix DHCP breaking after suspend.
 * Make boot partition bigger.
