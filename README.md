@@ -107,7 +107,7 @@ In `/etc/vconsole.conf` set `FONT=ter-125n`.
 
 #### Downgrade xz
 
-Downgrade `xz` to 5.4.6 or earlier due to xz exploit (better safe than sorry). Download it from the [Arch Archive - xz](https://archive.archlinux.org/packages/x/xz/) then run:
+Downgrade xz to 5.4.6 or earlier due to xz exploit (better safe than sorry). Download it from the [Arch Archive - xz](https://archive.archlinux.org/packages/x/xz/) then run:
 ```
 pacman -R xz
 pacman -U /path/to/download
