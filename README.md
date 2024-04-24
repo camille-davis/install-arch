@@ -308,7 +308,7 @@ Broadcast=[last ip of subnet]
 
 ## Power and Fans
 
-(Copied from * [Philp @ Medium - Arch Linux Running on my MacBook](https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3) but have not tested it.)
+(Copied from [Philp @ Medium - Arch Linux Running on my MacBook](https://medium.com/@philpl/arch-linux-running-on-my-macbook-2ea525ebefe3) but have not tested it.)
 
 ### Get mbpfan
 
